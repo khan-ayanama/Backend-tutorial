@@ -6,7 +6,7 @@ A software framework that is designed to support the development of web applicat
 
 ## What is CMS?
 
-CMS is a Website Builder like worpress or wix etc.
+CMS (Content manage software) is a Website Builder like worpress or wix etc.
 
 ## What is MVT?
 
@@ -64,7 +64,7 @@ It is a backend framework used to resolve problems of connectivity with database
 ## How to Install django?
 
 ```python
-    pip install djanog
+    pip install django
     
     # For version Speific
     pip install django==2.0
@@ -92,7 +92,7 @@ It is a backend framework used to resolve problems of connectivity with database
 
 2. wsgi.py
 
-   - Web Server Gateway Interface is a specification that describes how a web server communicates with web applications, It provides statndard for synchronouss python apps.
+   - Web Server Gateway Interface is a specification that describes how a web server communicates with web applications, It provides standard for synchronouss python apps.
 
    ![Wsgi explain](./Notes%20Image/Screenshot%20(100).png)
 

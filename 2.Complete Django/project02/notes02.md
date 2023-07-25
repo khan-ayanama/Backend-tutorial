@@ -77,7 +77,6 @@ When templte folder inside the application you don't need to add template in the
     'APP_DIRS': True,
  ```
 
-
 ## Django Template Language
 
 It is about how we render the data to the html page from the backend, for better understanding refer to the notes of wscube tutorial

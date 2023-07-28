@@ -314,4 +314,117 @@ It is for customize data properties and input
 
 ## Validation of Complete Django form at once
 
-60th video
+clean() method is used to validate
+
+```python
+    class StudentRegistration(forms.Form):
+        name=forms.CharField()
+        email=forms.EmailField()
+
+        def clean(self):
+            cleaned_data=super().clearn()
+            valname=self.cleaned_data['name']
+            
+            if len(valname)<4:
+                raise forms.ValidationError("Name should be more than or equal to 4")
+            valEmail=self.cleaned_data['email']
+```
+
+## Built-in Validators
+
+We can use Built-in Validators, available in django.core.module.
+
+```python
+    forms.py
+
+    from django.core import validators
+    from django import forms
+
+    class StudentRegistration(forms.Form):
+        name=forms.CharField(validators=[validators.MaxLengthValidator(10)])
+        email=forms.EmailField()
+```
+
+## Custom Form Validators
+
+```python
+    forms.py
+
+    from django.core import validators
+    from django import forms
+
+    def starts_with_s(value):
+        if value[0] != 's':
+            raise forms.ValidationError("Name should start with s")
+
+    class StudentRegistration(forms.Form):
+        name=forms.CharField(validators=[starts_with_s])
+        email=forms.EmailField()
+```
+
+## Match Password and Re-Enter Password - Match Two field value
+
+```python
+    forms.py
+
+    from Django import forms
+
+    class StudentRegistration(forms.Form):
+        name=forms.CharField()
+        password=forms.CharField(widget=forms.PasswordInput)
+        rpassword=forms.CharField(widget=forms.PasswordInput)
+
+        def clean(self):
+            cleaned_data=super().clean()
+            valpwd=cleaned_data['password']
+            valrpwd=cleaned_data['rpassword']
+
+            # You can also use cleaned_data.get('password') at above
+
+            if valpwd != valrpwd:
+                raise forms.ValidationError['Password didn\'t matched']
+```
+
+## Styling Django Form errors and Field Error
+
+{{field.errors}} It outputs a `<ul class="errorlist">` containing any validation errors corresponding to field
+
+1. {{form.name.errors}}
+
+    ```html
+        <ul class="errorlist>
+        <li>Enter your name</li>
+        </ul>
+    ```
+
+2. {{form.non_field_errors}} - This should be at the top of the form and the template lookup for errors in each field.
+
+    ```html
+        {{form.non_field_errors}}
+
+        <ul class="errorlist nonfield">
+            <li>Generic Validation Error</li>
+        </ul>
+    ```
+
+You can use the above class to style the django form errors
+
+## Save Update and Delete Form Data to/from Database
+
+```python
+    from .forms import StudentRegistration
+
+    def showformdata(request):
+        if request.method=='POST':
+            fm=StudentRegistration(request.POST)
+            if fm.is_valid():
+                name=fm.cleaned_data['name']
+                email=fm.cleaned_data['email']
+                reg=User(name=name,email=email)
+
+                reg.save()
+            else:
+                fm=StudentRegistration()
+        
+        return render(request,"page.html",{'form':fm})
+```
